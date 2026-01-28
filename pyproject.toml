@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "weather-daemon"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = [
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.0",
+    "tenacity>=8.2.0",
+    "python-json-logger>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+weather-daemon = "weather_daemon.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/weather_daemon"]
+

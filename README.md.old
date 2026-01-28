@@ -1,0 +1,37 @@
+# weather-daemon
+
+## Quickstart
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+python -m pip install -U pip
+pip install -e ".[dev]"
+weather-daemon --help
+```
+
+rough outline - this will be similiar to rss-daemon that already exist
+
+
+The weather-daemon creates static json file like rss-daemon does at /weather/weather_forecast.json in web root
+It polls Google Maps weather api every hour and writes and updates /weather/weather_forecast.json  in web root
+api key should read from a config file I will enter later
+refer to https://developers.google.com/maps/documentation/weather
+
+needs systemd service, nginx and maybe haproxy configs too (will provide this when we get there)
+
+
+refer to https://github.com/bellistech/www as needed
+
+
+refer to https://github.com/bellistech/rss-daemon as needed
+
+refer to https://github.com/bellistech/weather-daemon it is barren now
+
+
+
+
+
+
+- package: `weather_daemon`
+- entrypoint: `weather-daemon` -> `weather_daemon.cli:main`
