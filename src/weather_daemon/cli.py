@@ -9,6 +9,7 @@ from pathlib import Path
 
 from weather_daemon.config import WeatherConfig
 from weather_daemon.daemon import WeatherDaemon
+from weather_daemon.healthcheck import HealthCheckServer
 from weather_daemon.logging_config import setup_logging as configure_logging
 
 
