@@ -21,7 +21,7 @@ cd weather-daemon
 sudo ./setup.sh
 
 # When prompted, provide:
-# - API key: AIzaSyD-vAbdmb2Zi8ZSbvHyPLCQHq8WdzhmZpw (or yours)
+# - API key: PLACEHOLDER_YOU_API_KEY
 # - Latitude: 30.2672 (Austin, TX - or your location)
 # - Longitude: -97.7431
 # - Location name: Austin, TX (or your city)
