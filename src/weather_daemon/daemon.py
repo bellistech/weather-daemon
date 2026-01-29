@@ -38,7 +38,6 @@ class WeatherDaemon:
         current_conditions_endpoint: str = "currentConditions:lookup",
         hourly_forecast_endpoint: str = "forecast/hours:lookup",
         daily_forecast_endpoint: str = "forecast/days:lookup",
-        health_check_port: int = 8080,
     ) -> None:
         """Initialize the weather daemon.
 
@@ -54,7 +53,6 @@ class WeatherDaemon:
             current_conditions_endpoint: Endpoint for current conditions
             hourly_forecast_endpoint: Endpoint for hourly forecast
             daily_forecast_endpoint: Endpoint for daily forecast
-            health_check_port: Port for health check HTTP server (default 8080)
         """
         self.api_key = api_key
         self.output_dir = Path(output_dir)
@@ -64,7 +62,6 @@ class WeatherDaemon:
         self.poll_interval = poll_interval
         self.timeout = timeout
         self.running = False
-        self.health_check_port = health_check_port
         self.health_server = None
 
         # API endpoints (configurable for different providers)
@@ -383,14 +380,8 @@ class WeatherDaemon:
 
     async def run(self) -> None:
         """Run the daemon polling loop."""
-        from .health import HealthCheckServer
-
         self.running = True
 
-        # Start health check server
-        output_file = self.output_dir / "weather_forecast.json"
-        self.health_server = HealthCheckServer(port=self.health_check_port, output_file=output_file)
-        self.health_server.start()
         logger.info(
             f"Starting weather daemon (polling every {self.poll_interval}s, "
             f"output: {self.output_dir}/weather_forecast.json)"
