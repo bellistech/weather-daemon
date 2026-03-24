@@ -93,7 +93,6 @@ def daemon(tmp_path):
         location_name="Test Location",
         poll_interval=3600,
         timeout=30,
-        health_check_port=8081,
     )
 
 
