@@ -1,0 +1,46 @@
+[Unit]
+Description=Weather Daemon - Google Maps Weather API Poller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=weather-daemon
+Group=weather-daemon
+WorkingDirectory=/opt/weather-daemon
+
+# Load environment from config file
+EnvironmentFile=/etc/weather-daemon/config.env
+
+# Run the daemon
+ExecStart=/opt/weather-daemon/venv/bin/weather-daemon run --config /etc/weather-daemon/config.env
+
+# Restart on failure
+Restart=on-failure
+RestartSec=30s
+
+# Limit restart attempts
+StartLimitInterval=300s
+StartLimitBurst=5
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/weather-daemon/cache
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target
